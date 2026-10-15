@@ -1,0 +1,28 @@
+### Exercise 1 — Easy
+
+Create a function named `square()` that accepts an integer and returns its square.
+
+Example:
+
+```text
+Input: 5
+Output: 25
+```
+
+### Exercise 2 — Easy
+
+Create a function named `isEven()` that returns `is even` if a number is even and `is odd` otherwise.
+
+### Exercise 3 — Medium
+
+Create a function named `maximum()` that accepts two integers and returns the larger one.
+
+### Exercise 4 — Medium
+
+Create a function named `factorial()` that calculates the factorial of a non-negative integer using a loop.
+
+For example, `factorial(5)` returns `120`.
+
+### Exercise 5 — Challenge
+
+Create a calculator using separate functions for addition, subtraction, multiplication, and division.
