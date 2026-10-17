@@ -1,0 +1,19 @@
+Exercise 1: Display a Name
+
+Write a program that stores your name in a character array and prints it.
+
+Exercise 2: Count Characters
+
+Ask the user to enter a word and print its length using strlen().
+
+Exercise 3: Print Each Character
+
+Given char word[] = "Hello";, print every character on a separate line.
+
+Exercise 4: Read a Sentence
+
+Write a program that reads a full sentence using fgets() and displays it.
+
+Exercise 5: Compare Two Strings
+
+Ask the user to enter two words and use strcmp() to determine whether they are equal.
