@@ -364,3 +364,302 @@ A non-`void` function should return an appropriate value on every path where its
 - A prototype declares a function before its definition.
 - Local variables are limited to their scope.
 - Functions make programs more organized, reusable, and easier to maintain.
+# Pointers in C
+
+## 1. What Is a Pointer?
+
+A **pointer** is a variable that stores the memory address of another variable.
+
+Normally, a variable stores a value. A pointer stores the address where that value is located in memory.
+
+### Example
+
+```c
+#include <stdio.h>
+
+int main(void)
+{
+    int number = 10;
+    int *ptr = &number;
+
+    printf("Value: %d\n", number);
+    printf("Address: %p\n", (void *)&number);
+    printf("Pointer: %p\n", (void *)ptr);
+    printf("Value through pointer: %d\n", *ptr);
+
+    return 0;
+}
+```
+
+### Output example
+
+```text
+Value: 10
+Address: 0x7ffd1234
+Pointer: 0x7ffd1234
+Value through pointer: 10
+```
+
+*Note: The memory address will be different on your computer.*
+
+## 2. The Three Important Pointer Operators
+
+| Operator | Name | Meaning |
+|---|---|---|
+| `&` | Address-of | Gets the memory address of a variable |
+| `*` | Dereference | Accesses the value stored at an address |
+| `int *ptr` | Pointer declaration | Declares a pointer to an integer |
+
+### Address-of operator (`&`)
+
+```c
+int number = 10;
+
+printf("%p", (void *)&number);
+```
+
+The expression `&number` gives the memory address of `number`.
+
+### Pointer declaration (`*`)
+
+```c
+int number = 10;
+int *ptr = &number;
+```
+
+Here, `ptr` stores the address of `number`.
+
+### Dereference operator (`*`)
+
+```c
+printf("%d", *ptr);
+```
+
+Output:
+
+```text
+10
+```
+
+The expression `*ptr` accesses the value at the address stored in `ptr`.
+
+## 3. How Pointers Work in Memory
+
+Imagine that a variable is stored at memory address `1000`.
+
+```c
+int number = 10;
+int *ptr = &number;
+```
+
+Conceptually:
+
+```text
+number
++---------+
+|   10    |
++---------+
+  Address: 1000
+
+ptr
++---------+
+|  1000   | -----> number
++---------+
+```
+
+The address `1000` is only an illustration, not a real address you should expect.
+
+## 4. Changing a Variable Through a Pointer
+
+One useful feature of pointers is that you can modify a variable through its pointer.
+
+```c
+#include <stdio.h>
+
+int main(void)
+{
+    int number = 10;
+    int *ptr = &number;
+
+    *ptr = 25;
+
+    printf("%d\n", number);
+
+    return 0;
+}
+```
+
+Output:
+
+```text
+25
+```
+
+**Why?** Because `ptr` points to `number`, assigning `25` to `*ptr` changes the original variable.
+
+## 5. Pointers and Functions
+
+Pointers allow functions to modify variables belonging to the calling function.
+
+```c
+#include <stdio.h>
+
+void changeValue(int *ptr)
+{
+    *ptr = 50;
+}
+
+int main(void)
+{
+    int number = 10;
+
+    changeValue(&number);
+
+    printf("%d\n", number);
+
+    return 0;
+}
+```
+
+Output:
+
+```text
+50
+```
+
+The function receives the address of `number` and changes its value through the pointer.
+
+## 6. Pointers and Arrays
+
+In many expressions, an array name is converted to a pointer to its first element.
+
+```c
+#include <stdio.h>
+
+int main(void)
+{
+    int numbers[] = {10, 20, 30};
+    int *ptr = numbers;
+
+    printf("%d\n", *ptr);
+    printf("%d\n", *(ptr + 1));
+    printf("%d\n", *(ptr + 2));
+
+    return 0;
+}
+```
+
+Output:
+
+```text
+10
+20
+30
+```
+
+Pointer arithmetic moves between elements according to their type and size.
+
+- `*ptr` accesses the first element.
+- `*(ptr + 1)` accesses the second element.
+- `*(ptr + 2)` accesses the third element.
+
+## 7. NULL Pointers
+
+A `NULL` pointer does not point to a valid object.
+
+```c
+int *ptr = NULL;
+```
+
+You must not dereference a null pointer:
+
+```c
+// Do not do this:
+printf("%d", *ptr);
+```
+
+Dereferencing a null or otherwise invalid pointer causes undefined behavior.
+
+## 8. Common Pointer Mistakes
+
+### Mistake 1: Using an uninitialized pointer
+
+```c
+int *ptr;
+*ptr = 10;  // Incorrect
+```
+
+The pointer has not been initialized to a valid address.
+
+Correct:
+
+```c
+int number;
+int *ptr = &number;
+
+*ptr = 10;
+```
+
+### Mistake 2: Confusing an address with a value
+
+```c
+int number = 10;
+int *ptr = &number;
+
+printf("%p", (void *)ptr);  // Prints the address
+printf("%d", *ptr);         // Prints the value
+```
+
+### Mistake 3: Forgetting the address-of operator
+
+```c
+int number = 10;
+int *ptr = &number;
+```
+
+For this example, `&number` provides the address needed to initialize `ptr`.
+
+## 9. Video Tutorial
+
+Watch this video to reinforce your understanding of pointers in C:
+
+[**Pointers in C — YouTube Video Tutorial**](https://www.youtube.com/watch?v=2ybLD6_2gKM)
+
+## 10. Practice Exercises
+
+Try these exercises before looking for solutions.
+
+### Exercise 1: Basic pointer
+
+Create an integer variable with the value `15`. Create a pointer to it and print both the value and its address.
+
+### Exercise 2: Modify a value
+
+Create an integer variable with the value `20`. Use a pointer to change it to `100`, then print the variable.
+
+### Exercise 3: Pointer and array
+
+Given this array:
+
+```c
+int numbers[] = {5, 10, 15, 20};
+```
+
+Use a pointer to print all four elements.
+
+### Exercise 4: Function and pointer
+
+Write a function named `doubleValue` that receives a pointer to an integer and doubles the original variable's value.
+
+### Exercise 5: Swap two variables
+
+Write a function that swaps two integer variables using pointers.
+
+## 11. Summary
+
+- A pointer stores a memory address.
+- `&variable` obtains a variable's address.
+- `*ptr` accesses or modifies the value at the pointed-to address.
+- Pointers allow functions to modify variables in the caller.
+- Pointers are widely used with arrays, strings, dynamic memory, and data structures.
+- Always initialize pointers before using them and ensure they point to valid objects before dereferencing them.
